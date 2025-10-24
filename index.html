@@ -3,203 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Cloud Storage</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Никнеймы игроков Legion SCL</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e6e6e6;
+            line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
         }
-
+        
         .container {
             max-width: 800px;
             margin: 0 auto;
         }
-
+        
         header {
             text-align: center;
-            padding: 40px 20px;
-            color: white;
+            margin-bottom: 40px;
+            padding: 30px 0;
         }
-
-        .logo {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .title {
+        
+        h1 {
             font-size: 2.5rem;
-            font-weight: 300;
             margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
+        
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto;
         }
-
-        .input-section {
-            background: white;
+        
+        .nicknames-container {
+            background: rgba(25, 25, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-
-        .input-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .input-group input {
-            flex: 1;
+        
+        .nickname-item {
+            background: rgba(40, 40, 60, 0.6);
+            border-radius: 10px;
             padding: 15px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-group input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .input-group button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            margin-bottom: 15px;
+            border-left: 4px solid #4ecdc4;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
         }
-
-        .input-group button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        
+        .nickname-item:hover {
+            background: rgba(50, 50, 70, 0.8);
+            transform: translateX(5px);
+            border-left-color: #ff6b6b;
         }
-
-        .input-group button:active {
-            transform: translateY(0);
-        }
-
-        .players-section {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            color: #2d3748;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .players-list {
-            display: grid;
-            gap: 15px;
-        }
-
-        .player-item {
-            background: #f7fafc;
-            padding: 15px 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-left: 4px solid #667eea;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .player-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .player-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #718096;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #cbd5e0;
-        }
-
-        .empty-state p {
+        
+        .nickname-text {
+            font-family: 'Courier New', monospace;
             font-size: 1.1rem;
-            line-height: 1.6;
+            font-weight: 600;
+            color: #4ecdc4;
+            word-break: break-all;
         }
-
-        .counter {
-            background: #e2e8f0;
-            padding: 8px 16px;
-            border-radius: 20px;
+        
+        .copy-indicator {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .nickname-item:hover .copy-indicator {
+            opacity: 1;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(78, 205, 196, 0.9);
+            color: #0a0a1a;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .success-message.show {
+            transform: translateX(0);
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 25px;
+            color: #888;
             font-size: 0.9rem;
-            color: #4a5568;
-            margin-left: 10px;
         }
-
+        
         @media (max-width: 600px) {
-            .input-group {
-                flex-direction: column;
-            }
-            
-            .input-group button {
+            body {
                 padding: 15px;
             }
             
-            .title {
+            h1 {
                 font-size: 2rem;
             }
             
-            .logo {
-                font-size: 2.5rem;
+            .nicknames-container {
+                padding: 20px;
+            }
+            
+            .nickname-item {
+                padding: 12px 15px;
             }
         }
     </style>
@@ -207,133 +142,86 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <i class="fas fa-cloud"></i>
-            </div>
-            <h1 class="title">Roblox Cloud Storage</h1>
-            <p class="subtitle">Введите свой никнейм и присоединяйтесь к сообществу</p>
+            <h1>Никнеймы игроков Legion SCL</h1>
+            <p class="subtitle">Нажмите на никнейм, чтобы скопировать его в буфер обмена</p>
         </header>
-
-        <div class="input-section">
-            <div class="input-group">
-                <input type="text" id="usernameInput" placeholder="Введите ваш Roblox никнейм..." autocomplete="off">
-                <button id="submitBtn">
-                    <i class="fas fa-plus"></i> Добавить
-                </button>
-            </div>
+        
+        <div class="nicknames-container" id="nicknamesContainer">
+            <!-- Никнеймы будут добавлены сюда -->
         </div>
-
-        <div class="players-section">
-            <h2 class="section-title">
-                <i class="fas fa-users"></i>
-                Все игроки
-                <span id="playersCounter" class="counter">0 игроков</span>
-            </h2>
-            <div id="playersList" class="players-list">
-                <div class="empty-state">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Пока никто не добавил свой никнейм.<br>Будьте первым!</p>
-                </div>
-            </div>
-        </div>
+        
+        <p class="instructions">Все ники можно легко скопировать одним кликом!</p>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        Скопировано в буфер обмена!
     </div>
 
     <script>
-        // Имитация облачного хранилища с использованием sessionStorage
-        // В реальном приложении это было бы серверное хранилище
-        
-        let players = JSON.parse(sessionStorage.getItem('robloxPlayers') || '[]');
-        
-        function savePlayers() {
-            sessionStorage.setItem('robloxPlayers', JSON.stringify(players));
-        }
-        
-        function displayPlayers() {
-            const playersList = document.getElementById('playersList');
-            const counter = document.getElementById('playersCounter');
+        const nicknames = [
+            "Im_night_ghost_SLC",
+            "minibro_slc",
+            "kaisennn",
+            "Janjanjan91",
+            "RedJaan95",
+            "ha1less8",
+            "AS_BLOX777",
+            "SipnulLinchikSLC",
+            "TheKRiliK_AisBErG",
+            "xXHaNdEROXx",
+            "BIGminiPekca",
+            "Kakashkabobratypaya",
+            "SLCsoscool",
+            "dhdhddhdhh973",
+            "Abobys",
+            "Dima_drai0",
+            "matleq5",
+            "Ewep701",
+            "Erop123top",
+            "Lucikfrr_SLC",
+            "abrekos80",
+            "Wosnwoss11",
+            "xyu22822823",
+            "sur_xabit",
+            "ThisUnicron_deks",
+            "renaaak666",
+            "MHE_HOPM3000522",
+            "Model3D3",
+            "Toxic_pro572",
+            "SenatorEXT",
+            "OXR",
+            "Kirilas_UK"
+        ];
+
+        const container = document.getElementById('nicknamesContainer');
+        const successMessage = document.getElementById('successMessage');
+
+        nicknames.forEach(nickname => {
+            const nicknameItem = document.createElement('div');
+            nicknameItem.className = 'nickname-item';
+            nicknameItem.innerHTML = `
+                <span class="nickname-text">${nickname}</span>
+                <span class="copy-indicator">📋</span>
+            `;
             
-            counter.textContent = `${players.length} ${getPlayersText(players.length)}`;
-            
-            if (players.length === 0) {
-                playersList.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Пока никто не добавил свой никнейм.<br>Будьте первым!</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            playersList.innerHTML = '';
-            players.forEach((player, index) => {
-                const playerElement = document.createElement('div');
-                playerElement.className = 'player-item';
-                playerElement.innerHTML = `
-                    <div class="player-icon">${getPlayerInitial(player)}</div>
-                    <div class="player-name">${escapeHtml(player)}</div>
-                `;
-                playersList.appendChild(playerElement);
+            nicknameItem.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(nickname);
+                    showSuccessMessage();
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
             });
-        }
-        
-        function getPlayersText(count) {
-            if (count === 1) return 'игрок';
-            if (count >= 2 && count <= 4) return 'игрока';
-            return 'игроков';
-        }
-        
-        function getPlayerInitial(username) {
-            return username.charAt(0).toUpperCase();
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        function isValidUsername(username) {
-            // Проверка длины и допустимых символов для Roblox никнеймов
-            return username.length >= 3 && 
-                   username.length <= 20 && 
-                   /^[a-zA-Z0-9_]+$/.test(username);
-        }
-        
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            const input = document.getElementById('usernameInput');
-            const username = input.value.trim();
             
-            if (!username) {
-                alert('Пожалуйста, введите никнейм!');
-                return;
-            }
-            
-            if (!isValidUsername(username)) {
-                alert('Неверный формат никнейма! Никнейм должен содержать 3-20 символов и только буквы, цифры и подчеркивания.');
-                return;
-            }
-            
-            if (players.includes(username)) {
-                alert('Этот никнейм уже добавлен!');
-                return;
-            }
-            
-            players.push(username);
-            savePlayers();
-            displayPlayers();
-            input.value = '';
-            input.focus();
+            container.appendChild(nicknameItem);
         });
-        
-        // Поддержка Enter для отправки
-        document.getElementById('usernameInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('submitBtn').click();
-            }
-        });
-        
-        // Инициализация при загрузке
-        displayPlayers();
+
+        function showSuccessMessage() {
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 2000);
+        }
     </script>
 </body>
 </html>
