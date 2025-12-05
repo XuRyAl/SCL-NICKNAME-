@@ -1,231 +1,168 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Никнеймы игроков Legion SLC</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #e6e6e6;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #a0a0a0;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .nicknames-container {
-            background: rgba(25, 25, 45, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .nickname-item {
-            background: rgba(40, 40, 60, 0.6);
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-left: 4px solid #4ecdc4;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .nickname-item:hover {
-            background: rgba(50, 50, 70, 0.8);
-            transform: translateX(5px);
-            border-left-color: #ff6b6b;
-        }
-        
-        .nickname-text {
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #4ecdc4;
-            word-break: break-all;
-        }
-        
-        .copy-indicator {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        
-        .nickname-item:hover .copy-indicator {
-            opacity: 1;
-        }
-        
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(78, 205, 196, 0.9);
-            color: #0a0a1a;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            transform: translateX(200%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .success-message.show {
-            transform: translateX(0);
-        }
-        
-        .instructions {
-            text-align: center;
-            margin-top: 25px;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .nicknames-container {
-                padding: 20px;
-            }
-            
-            .nickname-item {
-                padding: 12px 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<title>Polygon Growth Animation</title>
+<style>
+  canvas {
+    background: #f0f0f0;
+    display: block;
+    margin: 0 auto;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Никнеймы игроков Legion SLC</h1>
-            <p class="subtitle">Нажмите на никнейм, чтобы скопировать его в буфер обмена</p>
-        </header>
-        
-        <div class="nicknames-container" id="nicknamesContainer">
-            <!-- Никнеймы будут добавлены сюда -->
-        </div>
-        
-        <p class="instructions">Все ники можно легко скопировать одним кликом!</p>
-    </div>
-    
-    <div class="success-message" id="successMessage">
-        Скопировано в буфер обмена!
-    </div>
+<canvas id="canvas" width="600" height="600"></canvas>
+<script>
+// Get canvas and context
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-    <script>
-        const nicknames = [
-            "Im_night_ghost_SLC",
-            "minibro_slc",
-            "kaisennn",
-            "Janjanjan91",
-            "RedJaan95",
-            "ha1less8",
-            "AS_BLOX777",
-            "SipnulLinchikSLC",
-            "TheKRiliK_AisBErG",
-            "xXHaNdEROXx",
-            "BIGminiPekca",
-            "Kakashkabobratypaya",
-            "SLCsoscool",
-            "dhdhddhdhh973",
-            "Abobys",
-            "Dima_drai0",
-            "matleq5",
-            "Ewep701",
-            "Erop123top",
-            "Lucikfrr_SLC",
-            "abrekos80",
-            "Wosnwoss11",
-            "xyu22822823",
-            "sur_xabit",
-            "ThisUnicron_deks",
-            "renaaak666",
-            "MHE_HOPM3000522",
-            "Model3D3",
-            "Toxic_pro572",
-            "SenatorEXT",
-            "OXR",
-            "Kirilas_UK",
-            "AisBErG_SLC",
-            "Rolik_your",
-            "52Pofigist52"
-        ];
+// Initialize polygon (triangle)
+let polygon = [
+  {x: 300, y: 150},
+  {x: 150, y: 450},
+  {x: 450, y: 450}
+];
 
-        const container = document.getElementById('nicknamesContainer');
-        const successMessage = document.getElementById('successMessage');
+// Ball properties
+let ball = {
+  x: 300,
+  y: 300,
+  radius: 8,
+  vx: 2,
+  vy: -2,
+  speedMultiplier: 1
+};
 
-        nicknames.forEach(nickname => {
-            const nicknameItem = document.createElement('div');
-            nicknameItem.className = 'nickname-item';
-            nicknameItem.innerHTML = `
-                <span class="nickname-text">${nickname}</span>
-                <span class="copy-indicator">📋</span>
-            `;
-            
-            nicknameItem.addEventListener('click', async () => {
-                try {
-                    await navigator.clipboard.writeText(nickname);
-                    showSuccessMessage();
-                } catch (err) {
-                    console.error('Failed to copy: ', err);
-                }
-            });
-            
-            container.appendChild(nicknameItem);
-        });
+// Function to draw polygon
+function drawPolygon(points) {
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (let i=1; i<points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = 'blue';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
 
-        function showSuccessMessage() {
-            successMessage.classList.add('show');
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 2000);
-        }
-    </script>
+// Function to draw ball
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI *2);
+  ctx.fillStyle = 'red';
+  ctx.fill();
+}
+
+// Function to update ball position
+function update() {
+  // Move ball
+  ball.x += ball.vx * ball.speedMultiplier;
+  ball.y += ball.vy * ball.speedMultiplier;
+
+  // Check collision with polygon sides
+  for (let i=0; i<polygon.length; i++) {
+    const p1 = polygon[i];
+    const p2 = polygon[(i+1)%polygon.length];
+
+    if (checkLineCircleCollision(p1, p2, ball)) {
+      // Reverse direction (simple bounce)
+      reflectBall(p1, p2);
+      // Increase speed
+      ball.speedMultiplier += 0.2;
+
+      // Add a new side to the polygon
+      addSideToPolygon(p1, p2);
+      
+      break; // Only handle one collision per frame
+    }
+  }
+
+  // Keep ball inside canvas bounds
+  if (ball.x + ball.radius > canvas.width || ball.x - ball.radius <0) {
+    ball.vx *= -1;
+  }
+  if (ball.y +ball.radius > canvas.height || ball.y - ball.radius <0) {
+    ball.vy *= -1;
+  }
+}
+
+// Function to check collision between circle and line segment
+function checkLineCircleCollision(p1, p2, circle) {
+  // Closest point on line segment to circle center
+  const A = {x: p1.x, y: p1.y};
+  const B = {x: p2.x, y: p2.y};
+  const C = {x: circle.x, y: circle.y};
+  
+  const AB = {x: B.x - A.x, y: B.y - A.y};
+  const AC = {x: C.x - A.x, y: C.y - A.y};
+  
+  const abLengthSq = AB.x*AB.x + AB.y*AB.y;
+  const t = Math.max(0, Math.min(1, (AC.x*AB.x + AC.y*AB.y) / abLengthSq));
+  
+  const closest = {x: A.x + AB.x * t, y: A.y + AB.y * t};
+  const distSq = (closest.x - C.x)**2 + (closest.y - C.y)**2;
+  
+  return distSq <= circle.radius**2;
+}
+
+// Function to reflect ball velocity upon collision
+function reflectBall(p1, p2) {
+  // Compute normal vector of the side
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const length = Math.hypot(dx, dy);
+  const normal = {x: -dy/length, y: dx/length};
+
+  // Dot product of velocity and normal
+  const dot = ball.vx * normal.x + ball.vy * normal.y;
+
+  // Reflect velocity
+  ball.vx = ball.vx - 2 * dot * normal.x;
+  ball.vy = ball.vy - 2 * dot * normal.y;
+
+  // Slightly move ball outside the collision to prevent sticking
+  ball.x += normal.x;
+  ball.y += normal.y;
+}
+
+// Function to add a new side to the polygon
+function addSideToPolygon(p1, p2) {
+  // For simplicity, add a new point slightly outside the midpoint of the collided side
+  const midX = (p1.x + p2.x)/2;
+  const midY = (p1.y + p2.y)/2;
+  
+  // Compute a perpendicular vector
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const length = Math.hypot(dx, dy);
+  const perp = {x: -dy/length, y: dx/length};
+
+  // Add new point outside the side
+  const newPoint = {
+    x: midX + perp.x *50,
+    y: midY + perp.y *50
+  };
+
+  // Insert new point into polygon
+  // Find index of p2 to insert after p1
+  const index = polygon.indexOf(p2);
+  polygon.splice(index, 0, newPoint);
+}
+
+// Animation loop
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawPolygon(polygon);
+  update();
+  drawBall();
+  requestAnimationFrame(animate);
+}
+
+// Start animation
+animate();
+</script>
 </body>
 </html>
-
